@@ -8,25 +8,61 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
   <script src="app/app.js"></script>
   <script src="app/grumbles/grumbles.controller.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body ng-app="grumble">
-  test {{5+5}} {{10-10}}
   <div ng-controller="grumblesController as grumblesViewModel">
-    {{grumblesViewModel.grumbles[0].author_name}}
+    {{grumblesViewModel.grumbles}}
+    <div ng-repeat="grumble in grumblesViewModel.grumbles">
+      <p ng-show="!editGrumble">{{$index + 1}}. {{grumble.title}} | {{grumble.author_name}} | {{grumble.content}} | {{grumble.photo_url}}</p>
+      <form ng-show="editGrumble">
+
+        <label>title</label>
+        <input type="text" name="title" ng-model="grumblesViewModel.grumble.title">
+        <label>Name</label>
+        <input type="text" name="author_name" ng-model="grumblesViewModel.grumble.author_name">
+        <label>Content</label>
+        <input type="text" name="content" ng-model="grumblesViewModel.grumble.content">
+        <label>Photo</label>
+        <input type="text" name="photo_url" ng-model="grumblesViewModel.grumble.photo_url">
+
+        <!-- Thomas' Solution -->
+        <!-- <button ng-click="editEntry = !editEntry; grumblersViewModel.edit($index)">Edit Entry</button>
+       <form ng-show="editEntry">
+         <label>Title:</label>
+         <input type="text" name="title" ng-model="grumblersViewModel.title"><br>
+         <label>Author:</label>
+         <input type="text" name="authorName" ng-model="grumblersViewModel.authorName"><br>
+         <label>Content:</label>
+         <input type="text" name="content" ng-model="grumblersViewModel.content"><br>
+         <label>PhotoURL:</label>
+         <input type="text" name="photoURL" ng-model="grumblersViewModel.photoURL"><br>
+         <button ng-click="grumblersViewModel.update($index); editEntry = !editEntry">Save</button>
+         <button ng-click="editEntry = !editEntry; grumblersViewModel.delete($index)">Delete Entry</button>
+       </form> -->
+
+        <button> Save </button>
+        <button ng-click="editGrumble = false">Cancel</button>
+        <button ng-click="grumblesViewModel.delete($index)">Delete</button>
+
+      </form>
+      <button class='edit' ng-click="grumblesViewModel.edit($index);editGrumble = !editGrumble">Edit Grumble</button>
+    </div>
 
     <div ng-click="grumblesViewModel.toggleForm()">New Grumble</div>
-    <form ng-show="grumblesViewModel.formIsVisible">
+    <form ng-show="grumblesViewModel.formIsVisible" ng-submit="grumblesViewModel.create()">
       <label>title</label>
-      <input type="text" name"title">
+      <input type="text" name="title" ng-model="grumblesViewModel.grumble.title">
       <label>Name</label>
-      <input type="text" name"author_name">
+      <input type="text" name="author_name" ng-model="grumblesViewModel.grumble.author_name">
       <label>Content</label>
-      <input type="text" name"content">
+      <input type="text" name="content" ng-model="grumblesViewModel.grumble.content">
       <label>Photo</label>
-      <input type="text" name"photo_url">
+      <input type="text" name="photo_url" ng-model="grumblesViewModel.grumble.photo_url">
+      <input type="submit" value="Submit">
     </form>
-    
+
 </body>
 
 </html>

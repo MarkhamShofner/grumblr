@@ -34,4 +34,20 @@ app.controller("grumblesController", function() {
       this.formIsVisible = true;
     }
   };
+  this.create = function(){
+    this.grumbles.unshift(this.grumble);
+  };
+  this.edit = function(index){
+    var grumble = this.grumbles[index];
+    this.grumble = grumble;
+  };
+  // this.edit = function (index){
+  //   this.grumbleEdited = this.grumbles[index];
+  // };
+  // this.update = function (index){
+  //   this.grumbles[index] = this.grumbleEdited;
+  // };
+  this.delete=function(index){
+    this.grumbles.splice(index,1);
+  };
 });
